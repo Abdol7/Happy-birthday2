@@ -14,8 +14,6 @@
             text-align: center;
             min-height: 100vh;
         }
-
-        /* خلفية نجوم متحركة */
         .stars {
             position: fixed;
             top: 0; left: 0;
@@ -23,7 +21,6 @@
             z-index: 1;
             pointer-events: none;
         }
-
         .star {
             position: absolute;
             width: 2px; height: 2px;
@@ -32,13 +29,10 @@
             opacity: 0.8;
             animation: twinkle 2s infinite;
         }
-
         @keyframes twinkle {
             0%, 100% { opacity: 0.5; }
             50% { opacity: 1; }
         }
-
-        /* تأثير المصفوفة */
         #matrix {
             position: fixed;
             top: 0;
@@ -53,8 +47,6 @@
             line-height: 21px;
             pointer-events: none;
         }
-
-        /* القلب */
         #heart-container {
             position: fixed;
             top: 0;
@@ -70,7 +62,6 @@
             transition: opacity 1s;
             background: rgba(255, 64, 129, 0.13);
         }
-
         .heart {
             font-size: 170px;
             color: #ff4081;
@@ -78,12 +69,10 @@
             text-shadow: 0 0 40px #ff4081, 0 0 90px #fff;
             margin-bottom: 10px;
         }
-
         @keyframes beat {
             0% { transform: scale(1); }
             100% { transform: scale(1.33); }
         }
-
         #message {
             color: #fff;
             font-size: 32px;
@@ -94,8 +83,6 @@
             letter-spacing: 1.8px;
             font-weight: bold;
         }
-
-        /* الكتاب */
         #book-container {
             position: fixed;
             top: 0;
@@ -109,7 +96,6 @@
             z-index: 30;
             background: linear-gradient(120deg, #ffbad6 0%, #ffd6e7 100%);
         }
-
         .book {
             width: 340px;
             height: 470px;
@@ -117,7 +103,6 @@
             position: relative;
             margin-top: 12vh;
         }
-
         .page {
             position: absolute;
             width: 100%;
@@ -139,17 +124,14 @@
             transition: transform 1.2s cubic-bezier(0.4, 0, 0.2, 1);
             background: linear-gradient(to bottom, #fff, #ffe6eb 100%);
         }
-
         #page1 { z-index: 5; }
         #page2 { z-index: 4; transform: rotateY(180deg); }
         #page3 { z-index: 3; transform: rotateY(180deg); }
         #page4 { z-index: 2; transform: rotateY(180deg); }
         #page5 { z-index: 1; transform: rotateY(180deg); }
-
         .flipped {
             transform: rotateY(180deg);
         }
-
         .title {
             position: absolute;
             top: 54px;
@@ -158,7 +140,6 @@
             font-weight: bold;
             text-shadow: 0 2px 14px #fff, 0 2px 5px rgba(0,0,0,0.07);
         }
-
         #music-control {
             position: fixed;
             bottom: 34px;
@@ -175,17 +156,14 @@
             box-shadow: 0 4px 18px rgba(255,64,129,0.28);
             transition: all 0.3s;
         }
-
         #music-control:hover {
             transform: scale(1.13);
             background: linear-gradient(120deg, #ff4081 70%, #ffd6e7 100%);
         }
-
         #music-control i {
             font-size: 34px;
             color: white;
         }
-
         .hearts {
             position: absolute;
             width: 100%;
@@ -193,7 +171,6 @@
             pointer-events: none;
             z-index: 10;
         }
-
         .heart-particle {
             position: absolute;
             font-size: 22px;
@@ -202,7 +179,6 @@
             opacity: 0;
             text-shadow: 0 0 12px #fff, 0 0 4px #ff4081;
         }
-
         @keyframes float {
             0% {
                 transform: translateY(0) rotate(0deg) scale(1);
@@ -227,7 +203,7 @@
 
     <!-- القلب والرسالة -->
     <div id="heart-container">
-        <div class="title">عيد ميلاد سعيد يا أميرتي! 🎂</div>
+        <div class="title" id="main-title"></div>
         <div class="heart">💖</div>
         <div id="message"></div>
     </div>
@@ -236,11 +212,11 @@
     <div id="book-container">
         <div class="title">رسالة من قلبي</div>
         <div class="book">
-            <div class="page" id="page1">كل عام و أنتِ في قلبي<br>نور حياتي و بهجة أيامي</div>
-            <div class="page" id="page2">كل عام و أنتِ أجمل هدية<br>و أغلى من كل الأمنيات</div>
-            <div class="page" id="page3">كل عام و ابتسامتكِ<br>تزهر في عالمي حباً و دفئاً</div>
-            <div class="page" id="page4">كل عام و يدي بيدك<br>و روحي بحبكِ ترقص فرحاً</div>
-            <div class="page" id="page5">كل عام و أنتِ حبيبتي<br>و كل سنة و أنتِ أجمل تفاصيل حياتي 💕</div>
+            <div class="page" id="page1"></div>
+            <div class="page" id="page2"></div>
+            <div class="page" id="page3"></div>
+            <div class="page" id="page4"></div>
+            <div class="page" id="page5"></div>
         </div>
         <div class="hearts" id="hearts"></div>
     </div>
@@ -253,7 +229,6 @@
     <!-- الصوت -->
     <audio id="bg-music" loop>
         <source src="https://cdn.pixabay.com/audio/2023/03/14/audio_145b2d7d6a.mp3" type="audio/mpeg">
-        <!-- استبدل الرابط بأغنية رومانسية مفضلة لك -->
     </audio>
 
     <script>
@@ -271,13 +246,13 @@
         }
         createStars();
 
-        // تأثير المصفوفة المحسن
+        // تأثير المصفوفة: فقط حروف "بحبك"
         const matrix = document.getElementById('matrix');
         const ctx = matrix.getContext('2d');
         matrix.width = window.innerWidth;
         matrix.height = window.innerHeight;
 
-        const chars = "01أبتثجحخدذرزسشصضطظعغفقكلمنهوي♥";
+        const chars = "بحبك";
         const fontSize = 22;
         const columns = Math.floor(matrix.width / fontSize);
         const drops = [];
@@ -292,10 +267,7 @@
             ctx.font = `bold ${fontSize}px 'Courier New'`;
             for (let i = 0; i < drops.length; i++) {
                 const text = chars.charAt(Math.floor(Math.random() * chars.length));
-                ctx.fillStyle = '#fff';
-                if (text === "♥") {
-                    ctx.fillStyle = '#ff4081';
-                }
+                ctx.fillStyle = '#ff4081';
                 ctx.globalAlpha = Math.min(1, drops[i] / 60);
                 ctx.fillText(text, i * fontSize, drops[i] * fontSize);
 
@@ -319,38 +291,69 @@
             }, 1700);
         }, 4000);
 
-        // عرض القلب والرسالة
+        // عرض القلب والرسالة: بالإنجليزي ثم عربي
         const heartContainer = document.getElementById('heart-container');
         const messageElement = document.getElementById('message');
-        const fullMessage = "عيد ميلاد سعيد يا أغلى ما في حياتي، يا نبض قلبي وروحي. أحبك أكثر مما تتصورين، وكل سنة وأنتِ أجمل وأقرب 💖";
+        const mainTitle = document.getElementById('main-title');
+        let messages = [
+            { title: "Happy Birthday to you my love 🎂", message: "" },
+            { title: "عيد ميلاد سعيد يا أميرتي! 🎂", message: "عيد ميلاد سعيد يا أغلى ما في حياتي، يا نبض قلبي وروحي. أحبك أكثر مما تتصورين، وكل سنة وأنتِ أجمل وأقرب 💖" }
+        ];
+        let curMsg = 0;
         let currentChar = 0;
 
         function showHeart() {
-            heartContainer.style.opacity = '1';
+            mainTitle.textContent = messages[curMsg].title;
             messageElement.textContent = "";
             currentChar = 0;
-            const typeWriter = setInterval(() => {
-                if (currentChar < fullMessage.length) {
-                    messageElement.textContent += fullMessage.charAt(currentChar);
-                    currentChar++;
-                } else {
-                    clearInterval(typeWriter);
+            let fullMessage = messages[curMsg].message;
+            // عرض التايتل فقط في أول رسالة
+            if (curMsg === 0) {
+                heartContainer.style.opacity = '1';
+                setTimeout(() => {
+                    heartContainer.style.opacity = '0';
                     setTimeout(() => {
-                        heartContainer.style.opacity = '0';
+                        curMsg = 1;
+                        showHeart();
+                    }, 1000);
+                }, 1800);
+            } else {
+                heartContainer.style.opacity = '1';
+                const typeWriter = setInterval(() => {
+                    if (currentChar < fullMessage.length) {
+                        messageElement.textContent += fullMessage.charAt(currentChar);
+                        currentChar++;
+                    } else {
+                        clearInterval(typeWriter);
                         setTimeout(() => {
-                            heartContainer.style.display = 'none';
-                            showBook();
-                        }, 1000);
-                    }, 4500);
-                }
-            }, 67);
+                            heartContainer.style.opacity = '0';
+                            setTimeout(() => {
+                                heartContainer.style.display = 'none';
+                                showBook();
+                            }, 1000);
+                        }, 4500);
+                    }
+                }, 67);
+            }
         }
+
+        // صفحات الكتاب: كل صفحة نص مختلف (مع "قمري" و"دُنيتي")
+        const bookPages = [
+            "كل عام وأنتِ قمري الجميل ونور عمري",
+            "كل عام وأنتِ دُنيتي، وأشهر هدايا القدر لي",
+            "كل عام وابتسامتكِ تزرع في قلبي حباً ودفئًا",
+            "كل عام ويدك بيدي وروحي تفرح بحبكِ أكثر",
+            "كل عام وأنتِ حبيبتي، قمري، دُنيتي، وأجمل تفاصيل حياتي 💕"
+        ];
 
         // عرض الكتاب مع تأثيرات إضافية
         const bookContainer = document.getElementById('book-container');
         const pages = document.querySelectorAll('.page');
         const heartsContainer = document.getElementById('hearts');
         let currentPage = 0;
+
+        // عيّن نصوص الصفحات
+        bookPages.forEach((p, i) => { pages[i].textContent = p; });
 
         function showBook() {
             bookContainer.style.display = 'flex';
