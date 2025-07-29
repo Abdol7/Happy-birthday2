@@ -182,10 +182,10 @@
         @keyframes float {
             0% {
                 transform: translateY(0) rotate(0deg) scale(1);
-                opacity: 1;
+                opacity: 0.7;
             }
             60% {
-                opacity: 1;
+                opacity: 0.5;
             }
             100% {
                 transform: translateY(-100vh) rotate(360deg) scale(1.3);
@@ -228,14 +228,14 @@
 
     <!-- الصوت -->
     <audio id="bg-music" loop>
-        <source src="https://cdn.pixabay.com/audio/2023/03/14/audio_145b2d7d6a.mp3" type="audio/mpeg">
+        <source src="https://www.youtube.com/embed/HU_nX3kcvBk?autoplay=1" type="audio/mpeg">
     </audio>
 
     <script>
         // نجوم رومانسية
         function createStars() {
             const container = document.getElementById('stars');
-            for (let i = 0; i < 120; i++) {
+            for (let i = 0; i < 80; i++) {
                 const star = document.createElement('div');
                 star.classList.add('star');
                 star.style.left = Math.random() * 100 + 'vw';
@@ -268,7 +268,7 @@
             for (let i = 0; i < drops.length; i++) {
                 const text = chars.charAt(Math.floor(Math.random() * chars.length));
                 ctx.fillStyle = '#ff4081';
-                ctx.globalAlpha = Math.min(1, drops[i] / 60);
+                ctx.globalAlpha = Math.min(0.7, drops[i] / 60);
                 ctx.fillText(text, i * fontSize, drops[i] * fontSize);
 
                 if (drops[i] * fontSize > matrix.height && Math.random() > 0.97) {
@@ -297,7 +297,7 @@
         const mainTitle = document.getElementById('main-title');
         let messages = [
             { title: "Happy Birthday to you my love 🎂", message: "" },
-            { title: "عيد ميلاد سعيد يا أميرتي! 🎂", message: "عيد ميلاد سعيد يا أغلى ما في حياتي، يا نبض قلبي وروحي. أحبك أكثر مما تتصورين، وكل سنة وأنتِ أجمل وأقرب 💖" }
+            { title: "عيد ميلاد سعيد يا أميرتي! 🎂", message: "بحبك " }
         ];
         let curMsg = 0;
         let currentChar = 0;
@@ -339,11 +339,11 @@
 
         // صفحات الكتاب: كل صفحة نص مختلف (مع "قمري" و"دُنيتي")
         const bookPages = [
-            "كل عام وأنتِ قمري الجميل ونور عمري",
-            "كل عام وأنتِ دُنيتي، وأشهر هدايا القدر لي",
-            "كل عام وابتسامتكِ تزرع في قلبي حباً ودفئًا",
-            "كل عام ويدك بيدي وروحي تفرح بحبكِ أكثر",
-            "كل عام وأنتِ حبيبتي، قمري، دُنيتي، وأجمل تفاصيل حياتي 💕"
+            "كل عام وأنتِ معاي راحتي وسعادتي",
+            "كل عام وأنتِ بصحتك العافية تاج راسك",
+            "كل عام وأنتِ بابتسامتك اللي تنور أيامي",
+            "كل عام وأنتِ سحراني وبحبك أكثر كل سنة",
+            "كل عام وأنتِ بخير يا دُنيتي ❤️"
         ];
 
         // عرض الكتاب مع تأثيرات إضافية
@@ -351,6 +351,7 @@
         const pages = document.querySelectorAll('.page');
         const heartsContainer = document.getElementById('hearts');
         let currentPage = 0;
+        let autoFlipInterval;
 
         // عيّن نصوص الصفحات
         bookPages.forEach((p, i) => { pages[i].textContent = p; });
@@ -358,8 +359,17 @@
         function showBook() {
             bookContainer.style.display = 'flex';
             pages[0].style.transform = 'rotateY(0deg)';
-            setInterval(createHeart, 340);
-            document.addEventListener('click', flipPage);
+            setInterval(createHeart, 500); // قلل عدد القلوب الطائرة
+            
+            // تفعيل تقليب الصفحات تلقائياً كل 3 ثوان
+            autoFlipInterval = setInterval(flipPage, 3000);
+            
+            // إمكانية التحكم يدوياً بالنقر
+            document.addEventListener('click', () => {
+                clearInterval(autoFlipInterval);
+                flipPage();
+                autoFlipInterval = setInterval(flipPage, 3000);
+            });
         }
 
         function createHeart() {
@@ -370,6 +380,7 @@
             heart.style.top = '100vh';
             heart.style.fontSize = (Math.random() * 18 + 18) + 'px';
             heart.style.animationDuration = (Math.random() * 2.5 + 3) + 's';
+            heart.style.opacity = '0.6'; // جعل القلوب شفافة أكثر
             heartsContainer.appendChild(heart);
             setTimeout(() => heart.remove(), 4000);
         }
@@ -413,7 +424,7 @@
 
         // بدء تشغيل الموسيقى تلقائيًا مع تأخير
         setTimeout(() => {
-            bgMusic.volume = 0.38;
+            bgMusic.volume = 0.35;
             toggleMusic();
         }, 1500);
 
