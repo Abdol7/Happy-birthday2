@@ -369,14 +369,14 @@
         function showHeart(){
             mainTitle.textContent = "عيد ميلاد سعيد يا أميرتي";
             heartContainer.style.opacity = 1;
-            setTimeout(showMessage, 1700);
+            setTimeout(showMessage, 2500); // زيادة وقت ظهور الرسالة
         }
         function showMessage(){
             message.innerHTML = "دايما...<br>أحبكِ  ❤";
             setTimeout(()=> {
                 heartContainer.style.opacity = 0;
                 setTimeout(showBook, 1200);
-            }, 3200);
+            }, 5000); // زيادة وقت بقاء الرسالة
         }
         function showBook(){
             bookContainer.style.display = "flex";
@@ -388,7 +388,7 @@
                     bookContainer.classList.remove('book-disappear');
                     showFlower();
                 }, 1900);
-            }, 3700);
+            }, 5000); // زيادة وقت عرض الكتاب
         }
         function showFlower(){
             flowerContainer.style.display = "flex";
@@ -410,11 +410,21 @@
                 setTimeout(()=>{petal.setAttribute('opacity','1')}, 800 + i*120);
                 group.appendChild(petal);
             }
+            
+            // إعادة العرض بعد 10 ثواني
+            setTimeout(resetShow, 10000);
+        }
+        
+        function resetShow() {
+            flowerContainer.style.display = "none";
+            heartContainer.style.opacity = 0;
+            setTimeout(showHeart, 500);
         }
 
         // قلوب طائرة في صفحة الكتاب
         function animateHearts(){
             const hearts = document.getElementById('hearts');
+            hearts.innerHTML = ''; // تنظيف القلوب القديمة
             for(let i=0;i<30;i++){
                 let h = document.createElement('div');
                 h.className = 'heart-particle';
