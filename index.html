@@ -123,14 +123,6 @@
             backface-visibility: hidden;
             transition: transform 1.2s cubic-bezier(0.4, 0, 0.2, 1);
         }
-        #page1 { z-index: 5; }
-        #page2 { z-index: 4; transform: rotateY(180deg); }
-        #page3 { z-index: 3; transform: rotateY(180deg); }
-        #page4 { z-index: 2; transform: rotateY(180deg); }
-        #page5 { z-index: 1; transform: rotateY(180deg); }
-        .flipped {
-            transform: rotateY(180deg);
-        }
         .title {
             position: absolute;
             top: 54px;
@@ -191,6 +183,120 @@
                 opacity: 0;
             }
         }
+        
+        /* أنماط جديدة للوردة */
+        #flower-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            display: none;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            z-index: 40;
+        }
+        .flower {
+            position: relative;
+            width: 200px;
+            height: 200px;
+            margin-bottom: 30px;
+        }
+        .petal {
+            position: absolute;
+            width: 60px;
+            height: 100px;
+            background: linear-gradient(to bottom, #ff4081, #ff80ab);
+            border-radius: 50% 50% 50% 50% / 60% 60% 40% 40%;
+            box-shadow: 0 0 15px rgba(255, 64, 129, 0.5);
+            transform-origin: center bottom;
+            opacity: 0;
+            animation: bloom 3s forwards;
+        }
+        .flower-center {
+            position: absolute;
+            width: 50px;
+            height: 50px;
+            background: radial-gradient(circle, #ffeb3b, #ffc107);
+            border-radius: 50%;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            box-shadow: 0 0 20px #ffeb3b;
+            opacity: 0;
+            animation: bloom-center 3s 1.5s forwards;
+        }
+        .stem {
+            position: absolute;
+            width: 10px;
+            height: 200px;
+            background: linear-gradient(to bottom, #4caf50, #8bc34a);
+            top: 100px;
+            left: 50%;
+            transform: translateX(-50%);
+            border-radius: 5px;
+            opacity: 0;
+            animation: grow-stem 2s forwards;
+        }
+        .leaf {
+            position: absolute;
+            width: 40px;
+            height: 20px;
+            background: #8bc34a;
+            border-radius: 50% 50% 50% 50% / 60% 60% 40% 40%;
+            transform: rotate(45deg);
+            opacity: 0;
+            animation: grow-leaf 2s 1s forwards;
+        }
+        .leaf.left {
+            top: 180px;
+            left: 40%;
+        }
+        .leaf.right {
+            top: 180px;
+            left: 60%;
+        }
+        @keyframes bloom {
+            0% { transform: scale(0) rotate(0deg); opacity: 0; }
+            100% { transform: scale(1) rotate(var(--rotate)); opacity: 1; }
+        }
+        @keyframes bloom-center {
+            0% { transform: translate(-50%, -50%) scale(0); opacity: 0; }
+            100% { transform: translate(-50%, -50%) scale(1); opacity: 1; }
+        }
+        @keyframes grow-stem {
+            0% { height: 0; opacity: 0; }
+            100% { height: 200px; opacity: 1; }
+        }
+        @keyframes grow-leaf {
+            0% { transform: rotate(45deg) scale(0); opacity: 0; }
+            100% { transform: rotate(45deg) scale(1); opacity: 1; }
+        }
+        #flower-message {
+            color: #ff4081;
+            font-size: 32px;
+            margin-top: 20px;
+            text-align: center;
+            max-width: 85vw;
+            text-shadow: 0 0 10px #ff4081;
+            letter-spacing: 1.8px;
+            font-weight: bold;
+            opacity: 0;
+            animation: fade-in 2s 4s forwards;
+        }
+        @keyframes fade-in {
+            0% { opacity: 0; transform: translateY(20px); }
+            100% { opacity: 1; transform: translateY(0); }
+        }
+        .book-disappear {
+            animation: book-disappear 2s forwards;
+        }
+        @keyframes book-disappear {
+            0% { transform: scale(1) rotate(0deg); opacity: 1; }
+            50% { transform: scale(0.8) rotate(5deg); opacity: 0.5; }
+            100% { transform: scale(1.5) rotate(10deg); opacity: 0; }
+        }
     </style>
     <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
@@ -211,13 +317,37 @@
     <div id="book-container">
         <div class="title">رسالة من قلبي</div>
         <div class="book">
-            <div class="page" id="page1"></div>
-            <div class="page" id="page2"></div>
-            <div class="page" id="page3"></div>
-            <div class="page" id="page4"></div>
-            <div class="page" id="page5"></div>
+            <div class="page" id="page1">
+                كل عام وأنتِ قمري ونور عيوني<br><br>
+                كل عام و انتِ دُنيتي و هديه عمري<br><br>
+                كل عام و انتِ الحب الحقيقي<br><br>
+                كل عام و انتِ قمري و اجمل تفاصيل حياتي
+            </div>
         </div>
         <div class="hearts" id="hearts"></div>
+    </div>
+    
+    <!-- الوردة -->
+    <div id="flower-container">
+        <div class="flower">
+            <div class="stem"></div>
+            <div class="petal" style="--rotate: 0deg; top: 30px; left: 70px;"></div>
+            <div class="petal" style="--rotate: 45deg; top: 20px; left: 100px;"></div>
+            <div class="petal" style="--rotate: 90deg; top: 40px; left: 120px;"></div>
+            <div class="petal" style="--rotate: 135deg; top: 70px; left: 130px;"></div>
+            <div class="petal" style="--rotate: 180deg; top: 100px; left: 120px;"></div>
+            <div class="petal" style="--rotate: 225deg; top: 120px; left: 100px;"></div>
+            <div class="petal" style="--rotate: 270deg; top: 130px; left: 70px;"></div>
+            <div class="petal" style="--rotate: 315deg; top: 120px; left: 40px;"></div>
+            <div class="petal" style="--rotate: 360deg; top: 100px; left: 20px;"></div>
+            <div class="petal" style="--rotate: 405deg; top: 70px; left: 10px;"></div>
+            <div class="petal" style="--rotate: 450deg; top: 40px; left: 20px;"></div>
+            <div class="petal" style="--rotate: 495deg; top: 20px; left: 40px;"></div>
+            <div class="flower-center"></div>
+            <div class="leaf left"></div>
+            <div class="leaf right"></div>
+        </div>
+        <div id="flower-message">وردة لا تموت</div>
     </div>
 
     <!-- زر التحكم بالموسيقى -->
@@ -228,7 +358,6 @@
     <!-- الصوت -->
     <audio id="bg-music" loop>
         <source src="https://cdn1.esm3.com//music/34/wemaloh.mp3" type="audio/mpeg">
-        <!-- استبدل الرابط برابط الأغنية من أنغامي -->
     </audio>
 
     <script>
@@ -337,39 +466,23 @@
             }
         }
 
-        // صفحات الكتاب: كل صفحة نص مختلف
-        const bookPages = [
-            "كل عام وأنتِ قمري ونور عيوني
-كل عام و انتِ دُنيتي و هديه عمري 
-كل عام و انتِ الحب الحقيقي 
-كل عام و انتِ قمري و اجمل تفاصيل حياتي ",
-            
-        ];
-
-        // عرض الكتاب مع تأثيرات إضافية
+        // عرض الكتاب
         const bookContainer = document.getElementById('book-container');
-        const pages = document.querySelectorAll('.page');
+        const book = document.querySelector('.book');
         const heartsContainer = document.getElementById('hearts');
-        let currentPage = 0;
-        let autoFlipInterval;
-
-        // عيّن نصوص الصفحات
-        bookPages.forEach((p, i) => { pages[i].textContent = p; });
 
         function showBook() {
             bookContainer.style.display = 'flex';
-            pages[0].style.transform = 'rotateY(0deg)';
-            setInterval(createHeart, 600); // قلل عدد القلوب الطائرة
+            setInterval(createHeart, 600);
             
-            // تفعيل تقليب الصفحات تلقائياً كل 3 ثوان
-            autoFlipInterval = setInterval(flipPage, 3000);
-            
-            // إمكانية التحكم يدوياً بالنقر
-            document.addEventListener('click', () => {
-                clearInterval(autoFlipInterval);
-                flipPage();
-                autoFlipInterval = setInterval(flipPage, 3000);
-            });
+            // بعد 15 ثانية، اختفاء الكتاب وظهور الوردة
+            setTimeout(() => {
+                book.classList.add('book-disappear');
+                setTimeout(() => {
+                    bookContainer.style.display = 'none';
+                    showFlower();
+                }, 2000);
+            }, 15000);
         }
 
         function createHeart() {
@@ -385,20 +498,11 @@
             setTimeout(() => heart.remove(), 4000);
         }
 
-        function flipPage() {
-            if (currentPage < pages.length - 1) {
-                pages[currentPage].classList.add('flipped');
-                pages[currentPage + 1].style.transform = 'rotateY(0deg)';
-                currentPage++;
-            } else {
-                pages.forEach(page => {
-                    page.classList.add('flipped');
-                    page.style.transform = 'rotateY(180deg)';
-                });
-                pages[0].style.transform = 'rotateY(0deg)';
-                pages[0].classList.remove('flipped');
-                currentPage = 0;
-            }
+        // عرض الوردة
+        const flowerContainer = document.getElementById('flower-container');
+        
+        function showFlower() {
+            flowerContainer.style.display = 'flex';
         }
 
         // التحكم بالموسيقى
