@@ -470,7 +470,18 @@
         window.addEventListener("click", startShow, {once:true});
         window.addEventListener("touchstart", startShow, {once:true});
         window.addEventListener("keydown", startShow, {once:true});
-
+function explodeHeart() {
+    const heart = document.querySelector('.heart');
+    heart.innerHTML = '';
+    for(let i=0; i<20; i++) {
+        let smallHeart = document.createElement('div');
+        smallHeart.innerHTML = '❤️';
+        smallHeart.style.position = 'absolute';
+        smallHeart.style.fontSize = '20px';
+        smallHeart.style.animation = `float-heart ${Math.random()*3+2}s linear forwards`;
+        heart.appendChild(smallHeart);
+    }
+}
         // تحسين الأداء: إخفاء الصوت بالضغط عليه في البداية حتى يبدأ التفاعل
         pauseMusic();
     </script>
